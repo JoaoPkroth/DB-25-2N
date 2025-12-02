@@ -1452,12 +1452,12 @@
 <Texto ID="204">
 <Bounds Height="48" Left="95" Top="441" Width="205"/>
 <DisablePainted Valor="false"/>
-<Texto>N„o tenho certeza se est· certo :\
-¿ primeira vist·, parece confuso </Texto>
+<Texto>N√£o tenho certeza se est√° certo :\
+√Ä primeira vist√°, parece confuso </Texto>
 <Observacao/>
 <Fonte Estilo="1" Nome="Arial" Tamanho="12"/>
 <Ancorado Valor="false"/>
-<Titulo>ObservaÁ„o_1</Titulo>
+<Titulo>Observa√ß√£o_1</Titulo>
 <PaintTitulo Valor="false"/>
 <Alinhamento Valor="0"/>
 <CentrarVertical Valor="false"/>

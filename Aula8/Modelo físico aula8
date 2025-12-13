@@ -1,0 +1,132 @@
+/* Lógico_3: */
+
+CREATE TABLE client (
+    ID_Client Number(3) PRIMARY KEY,
+    Name String(250),
+    Delivery_Address String(40),
+    Email String(256)
+);
+
+CREATE TABLE Client_Vip (
+    Vip_level Number(1),
+    Register_Date Number(8),
+    fk_client_ID_Client Number(3) PRIMARY KEY
+);
+
+CREATE TABLE Regular_Client (
+    Loyalty_Discount Number(3),
+    Register_Date Number(8),
+    fk_client_ID_Client Number(3) PRIMARY KEY
+);
+
+CREATE TABLE Corp_Client (
+    Company_Name String(250),
+    Credit_Limit Number,
+    CNPJ Number(14),
+    fk_client_ID_Client Number(3) PRIMARY KEY
+);
+
+CREATE TABLE Order (
+    ID_Order Number(3) PRIMARY KEY,
+    Payment_Method String(250),
+    fk_Delivery_Status_Delivery_Status_PK String(25),
+    Order_Date Number(8),
+    fk_client_ID_Client Number(3)
+);
+
+CREATE TABLE Product (
+    Price Number(250),
+    Name String(250),
+    ID_Product Number(3) PRIMARY KEY,
+    fk_Stok_ID_Stok Number(3),
+    fk_Category_ID_Category Number(3)
+);
+
+CREATE TABLE Product_Order_Place_Order (
+    Quantity Number(999),
+    fk_Product_ID_Product Number(3),
+    fk_Order_ID_Order Number(3)
+);
+
+CREATE TABLE Stok (
+    Available_Quantity Number(999),
+    ID_Stok Number(3) PRIMARY KEY
+);
+
+CREATE TABLE Category (
+    ID_Category Number(3) PRIMARY KEY,
+    Name String(250)
+);
+
+CREATE TABLE Provider (
+    Contact Number(8),
+    Name String(250),
+    ID_Provider Number(3) PRIMARY KEY
+);
+
+CREATE TABLE Delivery_Status (
+    Delivery_Status_PK String(25) NOT NULL PRIMARY KEY,
+    Placed String(250),
+    Dispatched String(250),
+    Delivered Number(8),
+    Ready_Pickup Strin(50),
+    Cancled String(6)
+);
+
+CREATE TABLE Supply (
+    fk_Product_ID_Product Number(3),
+    fk_Provider_ID_Provider Number(3)
+);
+ 
+ALTER TABLE Client_Vip ADD CONSTRAINT FK_Client_Vip_2
+    FOREIGN KEY (fk_client_ID_Client)
+    REFERENCES client (ID_Client)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE Regular_Client ADD CONSTRAINT FK_Regular_Client_2
+    FOREIGN KEY (fk_client_ID_Client)
+    REFERENCES client (ID_Client)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE Corp_Client ADD CONSTRAINT FK_Corp_Client_2
+    FOREIGN KEY (fk_client_ID_Client)
+    REFERENCES client (ID_Client)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE Order ADD CONSTRAINT FK_Order_2
+    FOREIGN KEY (fk_Delivery_Status_Delivery_Status_PK)
+    REFERENCES Delivery_Status (Delivery_Status_PK)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE Order ADD CONSTRAINT FK_Order_3
+    FOREIGN KEY (fk_client_ID_Client)
+    REFERENCES client (ID_Client)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Product ADD CONSTRAINT FK_Product_2
+    FOREIGN KEY (fk_Stok_ID_Stok)
+    REFERENCES Stok (ID_Stok)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Product ADD CONSTRAINT FK_Product_3
+    FOREIGN KEY (fk_Category_ID_Category)
+    REFERENCES Category (ID_Category)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Product_Order_Place_Order ADD CONSTRAINT FK_Product_Order_Place_Order_1
+    FOREIGN KEY (fk_Product_ID_Product)
+    REFERENCES Product (ID_Product);
+ 
+ALTER TABLE Product_Order_Place_Order ADD CONSTRAINT FK_Product_Order_Place_Order_2
+    FOREIGN KEY (fk_Order_ID_Order)
+    REFERENCES Order (ID_Order);
+ 
+ALTER TABLE Supply ADD CONSTRAINT FK_Supply_1
+    FOREIGN KEY (fk_Product_ID_Product)
+    REFERENCES Product (ID_Product)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Supply ADD CONSTRAINT FK_Supply_2
+    FOREIGN KEY (fk_Provider_ID_Provider)
+    REFERENCES Provider (ID_Provider)
+    ON DELETE RESTRICT;

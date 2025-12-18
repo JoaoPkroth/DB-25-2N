@@ -1,0 +1,142 @@
+/* Lógico_1: */
+
+CREATE TABLE Usuario (
+    ID_Usuario (NUMBER(3)) PRIMARY KEY,
+    Nome (STRING(250)),
+    Email (STRING(250)),
+    Senha (STRING(250)),
+    Data_Nasc (DATE(8)),
+    fk_Endereco_Endereco_PK (NUMBER(2)),
+    fk_Streaming_ID_Streaming (NUMBER(3))
+);
+
+CREATE TABLE Basico (
+    Pulos_Limitados STRING,
+    Anuncios STRING,
+    fk_Usuario_ID_Usuario (NUMBER(3)) PRIMARY KEY
+);
+
+CREATE TABLE Premium (
+    Pulos_Ilimitados STRING,
+    Baixar_Musicas STRING,
+    Mix_Musicas STRING,
+    Quantidade_Telas (STRING(2)),
+    fk_Usuario_ID_Usuario (NUMBER(3)) PRIMARY KEY
+);
+
+CREATE TABLE Conteudo (
+    ID_Conteudo (NUMBER(3)) PRIMARY KEY,
+    Nome (STRING(250)),
+    Data_Lancamento (DATE(8)),
+    Tipo (STRING(250)),
+    fk_Streaming_ID_Streaming (NUMBER(3)),
+    fk_Artista_ID_Artista (NUMBER(3))
+);
+
+CREATE TABLE Playlist (
+    ID_Playlist (NUMBER(3)) PRIMARY KEY,
+    Nome (STRING(250)),
+    Data_Criacao (DATE(8)),
+    fk_Usuario_ID_Usuario (NUMBER(3))
+);
+
+CREATE TABLE Artista (
+    ID_Artista (NUMBER(3)) PRIMARY KEY,
+    Nome (CHAR((250),
+    Nacionalidade (STRING((50),
+    Data_Nasc (DATE((8)
+);
+
+CREATE TABLE Genero (
+    Nome (STRING(250)),
+    ID_Genero (NUMBER(3)) PRIMARY KEY,
+    fk_Conteudo_ID_Conteudo (NUMBER(3))
+);
+
+CREATE TABLE Streaming (
+    ID_Streaming (NUMBER(3)) PRIMARY KEY,
+    Nome (STRING(250)),
+    Data_Lancamento (DATE(8))
+);
+
+CREATE TABLE Podcast (
+    Video STRING,
+    Entrevista STRING,
+    fk_Streaming_ID_Streaming (NUMBER(3)) PRIMARY KEY
+);
+
+CREATE TABLE Musica (
+    Audio STRING,
+    fk_Streaming_ID_Streaming (NUMBER(3)) PRIMARY KEY
+);
+
+CREATE TABLE Conteudo_Playlist_Tem (
+    Musica_Playlist STRING,
+    Podcast_Playlist STRING,
+    fk_Playlist_ID_Playlist (NUMBER(3)),
+    fk_Conteudo_ID_Conteudo (NUMBER(3))
+);
+
+CREATE TABLE Endereco (
+    Endereco_PK (NUMBER(2)) NOT NULL PRIMARY KEY,
+    Pais (STRING(60)),
+    Estado (STRING(60))
+);
+ 
+ALTER TABLE Usuario ADD CONSTRAINT FK_Usuario_2
+    FOREIGN KEY (fk_Endereco_Endereco_PK)
+    REFERENCES Endereco (Endereco_PK)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE Usuario ADD CONSTRAINT FK_Usuario_3
+    FOREIGN KEY (fk_Streaming_ID_Streaming)
+    REFERENCES Streaming (ID_Streaming)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Basico ADD CONSTRAINT FK_Basico_2
+    FOREIGN KEY (fk_Usuario_ID_Usuario)
+    REFERENCES Usuario (ID_Usuario)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE Premium ADD CONSTRAINT FK_Premium_2
+    FOREIGN KEY (fk_Usuario_ID_Usuario)
+    REFERENCES Usuario (ID_Usuario)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE Conteudo ADD CONSTRAINT FK_Conteudo_2
+    FOREIGN KEY (fk_Streaming_ID_Streaming)
+    REFERENCES Streaming (ID_Streaming)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Conteudo ADD CONSTRAINT FK_Conteudo_3
+    FOREIGN KEY (fk_Artista_ID_Artista)
+    REFERENCES Artista (ID_Artista)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Playlist ADD CONSTRAINT FK_Playlist_2
+    FOREIGN KEY (fk_Usuario_ID_Usuario)
+    REFERENCES Usuario (ID_Usuario)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Genero ADD CONSTRAINT FK_Genero_2
+    FOREIGN KEY (fk_Conteudo_ID_Conteudo)
+    REFERENCES Conteudo (ID_Conteudo)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Podcast ADD CONSTRAINT FK_Podcast_2
+    FOREIGN KEY (fk_Streaming_ID_Streaming)
+    REFERENCES Streaming (ID_Streaming)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE Musica ADD CONSTRAINT FK_Musica_2
+    FOREIGN KEY (fk_Streaming_ID_Streaming)
+    REFERENCES Streaming (ID_Streaming)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE Conteudo_Playlist_Tem ADD CONSTRAINT FK_Conteudo_Playlist_Tem_1
+    FOREIGN KEY (fk_Playlist_ID_Playlist)
+    REFERENCES Playlist (ID_Playlist);
+ 
+ALTER TABLE Conteudo_Playlist_Tem ADD CONSTRAINT FK_Conteudo_Playlist_Tem_2
+    FOREIGN KEY (fk_Conteudo_ID_Conteudo)
+    REFERENCES Conteudo (ID_Conteudo);

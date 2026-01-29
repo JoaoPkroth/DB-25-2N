@@ -2,7 +2,7 @@ Create Table cliente(
 	id_cliente int Primary Key,
 	nome_cliente varchar(40) notnull,
 	sobrenome_cliente varchar(80) notnull
-);
+)
 create table produto (
 	id_produto int primary key,
 	nome_produto varchar(30) not null,
@@ -18,3 +18,12 @@ create table pedido (
 	qtde smallint not null,
 	foreign key (id_produto) references produto(id_produto)
 )
+
+select nome_cliente from cliente 
+
+insert into cliente (id_cliente, nome_cliente, sobrenome_cliente)
+values
+	(1, 'Lucas', 'Alves'),
+	(2, 'Leandra', 'Lemos')
+	
+select * from cliente
